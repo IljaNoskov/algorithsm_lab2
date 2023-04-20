@@ -1,6 +1,4 @@
-def bins(arr, num, start=0, stop=-1):
-    if stop == -1:
-        stop = len(arr)-1
+def bins(arr, num, start, stop):
     if start >= stop:
         return start
     mid = (start+stop)//2
@@ -40,30 +38,35 @@ for point in range(point_num):
         line[i] = int(line[i])
     point_mas.append(line)
 
-x_points = list(set_x)
-y_points = list(set_y)
-#print(x_points,y_points)
+x_points = sorted(list(set_x))
+y_points = sorted(list(set_y))
+#print(x_points, y_points)
 
 map_sq = []
-for i in range(len(x_points)*2):
+for i in range(len(x_points)*2-1):
     map_sq.append([])
-    for k in range(len(y_points)*2):
+    for k in range(len(y_points)*2-1):
         map_sq[i].append(0)
 
 for sq in range(square_num):
-    #print(bins(x_points, sq_x_point[sq][0]), bins(x_points, sq_x_point[sq][1]))
-    for i in range(bins(x_points, sq_x_point[sq][0])*2, bins(x_points, sq_x_point[sq][1])*2+1):
-        for j in range(bins(y_points, sq_y_point[sq][0])*2, bins(y_points, sq_y_point[sq][1])*2+1):
+    #print_matrix(map_sq)
+    #print(bins(x_points, sq_x_point[sq][0], 0, len(x_points)),
+    #               bins(x_points, sq_x_point[sq][1], 0, len(x_points)))
+    for i in range(bins(x_points, sq_x_point[sq][0], 0, len(x_points))*2,
+                   bins(x_points, sq_x_point[sq][1], 0, len(x_points))*2+1):
+        for j in range(bins(y_points, sq_y_point[sq][0], 0, len(y_points))*2,
+                       bins(y_points, sq_y_point[sq][1], 0, len(y_points))*2+1):
+            #print(i, j)
             map_sq[i][j] += 1
 #print_matrix(map_sq)
 
 for point in point_mas:
-    if ((point[0]<x_points[0] or point[0]>x_points[-1])
-            or (point[1]<y_points[0] or point[1]>y_points[-1])):
-        print(0,end=' ')
+    if ((point[0] < x_points[0] or point[0] > x_points[-1])
+            or (point[1]<y_points[0] or point[1] > y_points[-1])):
+        print(0, end=' ')
     else:
-        x = bins(x_points, point[0])
-        y = bins(y_points, point[1])
+        x = bins(x_points, point[0], 0, len(x_points))
+        y = bins(y_points, point[1], 0, len(y_points))
         #print(x, y, *point, end=' ')
         if x_points[x] == point[0]:
             x *= 2
