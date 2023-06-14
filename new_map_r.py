@@ -1,4 +1,5 @@
 def map_r(squares, points):
+    result = []
     def bins(arr, num, start, stop):
         if start >= stop:
             return start
@@ -45,8 +46,9 @@ def map_r(squares, points):
     for point in points:
         if ((point[0] < x_points[0] or point[0] > x_points[-1])
                 or (point[1] < y_points[0] or point[1] > y_points[-1])):
-            print(0, end=' ')
+            result.append(0)
         else:
             x = bins(x_points, point[0], 0, len(x_points))
             y = bins(y_points, point[1], 0, len(y_points))
-            print(map_sq[x][y], end=' ')
+            result.append(map_sq[x][y])
+    return result

@@ -1,4 +1,5 @@
 def tree_r(parms, points):
+    result = []
 
     class Tree:
         def __init__(self, left_gr=None, right_gr=None, left_ch=None, right_ch=None, cargo=0, ):
@@ -106,5 +107,5 @@ def tree_r(parms, points):
         if p[1] < q_y_points[0] or p[1] > q_y_points[-1]:
             print(0, end=' ')
             continue
-        rezult = sum_tree(Tree_mas[bins(q_x_points, p[0], 0, len(q_x_points))], p[1])
-        print(rezult, end=' ')
+        result.append(sum_tree(Tree_mas[bins(q_x_points, p[0], 0, len(q_x_points))], p[1]))
+    return result
