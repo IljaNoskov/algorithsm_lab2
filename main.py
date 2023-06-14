@@ -13,9 +13,9 @@ while index < 2**10:
     m_r = map_r(squares, points)
     t_r = tree_r(squares, points)
     print(index)
-    assert p_r == m_r, f'pr:\n{p_r}\n mr:\n{m_r}\n'
-    assert p_r == t_r, f'pr:\n{p_r}\n tr:\n{t_r}\n'
-    assert m_r == t_r, f'mr:\n{m_r}\n tr:\n{t_r}\n'
+    assert p_r == m_r, f'Решение перебором:\n{p_r}\nРешение картой:\n{m_r}\n'
+    assert p_r == t_r, f'Решение перебором:\n{p_r}\nРешение деревом:\n{t_r}\n'
+    assert m_r == t_r, f'Решение картой:\n{m_r}\nРешение деревом:\n{t_r}\n'
     print(f'')
     index = index * 2
 

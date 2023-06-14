@@ -31,9 +31,9 @@ def map_r(squares, points):
     y_points = sorted(list(y_points))
 
     map_sq = []
-    for i in range(len(x_points)):
+    for i in range(len(x_points) - 1):
         map_sq.append([])
-        for k in range(len(y_points)):
+        for k in range(len(y_points) - 1):
             map_sq[i].append(0)
 
     for sq in range(square_num):
@@ -44,8 +44,8 @@ def map_r(squares, points):
                 map_sq[i][j] += 1
 
     for point in points:
-        if ((point[0] < x_points[0] or point[0] > x_points[-1])
-                or (point[1] < y_points[0] or point[1] > y_points[-1])):
+        if ((point[0] < x_points[0] or point[0] >= x_points[-1])
+                or (point[1] < y_points[0] or point[1] >= y_points[-1])):
             result.append(0)
         else:
             x = bins(x_points, point[0], 0, len(x_points))
