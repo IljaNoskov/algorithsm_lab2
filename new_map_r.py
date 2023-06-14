@@ -1,10 +1,11 @@
 def map_r(squares, points):
     result = []
+
     def bins(arr, num, start, stop):
         if start >= stop:
-            return start
+            return stop
         mid = (start + stop) // 2
-        if arr[mid] == num:
+        if arr[mid] == num or (arr[mid] < num < arr[mid+1]):
             return mid
         elif arr[mid] < num:
             return bins(arr, num, mid + 1, stop)
@@ -18,22 +19,22 @@ def map_r(squares, points):
     square_num = len(squares)
     sq_x_points = []
     sq_y_points = []
-    x_points = set()
-    y_points = set()
+    x_points = []
+    y_points = []
     for sq in squares:
         sq_x_points.append([sq[0], sq[2]])
         sq_y_points.append([sq[1], sq[3]])
-        x_points.add(sq[0])
-        x_points.add(sq[2])
-        y_points.add(sq[1])
-        y_points.add(sq[3])
+        x_points.append(sq[0])
+        x_points.append(sq[2])
+        y_points.append(sq[1])
+        y_points.append(sq[3])
     x_points = sorted(list(x_points))
     y_points = sorted(list(y_points))
 
     map_sq = []
-    for i in range(len(x_points) - 1):
+    for i in range(len(x_points)):
         map_sq.append([])
-        for k in range(len(y_points) - 1):
+        for k in range(len(y_points)):
             map_sq[i].append(0)
 
     for sq in range(square_num):
