@@ -1,5 +1,9 @@
+from pereb_resh import pereb_r
+
+
 def tree_r(parms, points):
     result = []
+    p_result = pereb_r(parms, points)
 
     class Tree:
         def __init__(self, left_gr=None, right_gr=None, left_ch=None, right_ch=None, cargo=0, ):
@@ -13,7 +17,7 @@ def tree_r(parms, points):
         if start >= stop:
             return start
         mid = (start + stop) // 2
-        if arr[mid] == num:
+        if arr[mid] == num or (arr[mid] < num < arr[mid+1]):
             return mid
         elif arr[mid] < num:
             return bins(arr, num, mid + 1, stop)
@@ -43,7 +47,8 @@ def tree_r(parms, points):
         return mas[2]
 
     def plus_to_tree(t_tree, start_index, end_index, num) -> Tree:
-        if t_tree == None:
+        print(start_index, end_index, num)
+        if t_tree is None:
             return t_tree
         tree = Tree(t_tree.left_gr, t_tree.right_gr, t_tree.left_ch, t_tree.right_ch, t_tree.cargo)
         if tree.left_gr >= start_index and tree.right_gr <= end_index:
@@ -51,6 +56,8 @@ def tree_r(parms, points):
         elif tree.right_gr >= start_index or tree.left_gr <= end_index:
             tree.left_ch = plus_to_tree(tree.left_ch, start_index, end_index, num)
             tree.right_ch = plus_to_tree(tree.right_ch, start_index, end_index, num)
+        print_tree(tree)
+        print('\n\n')
         return tree
 
     def is_childe(tree):
@@ -87,25 +94,33 @@ def tree_r(parms, points):
     que = []
     squares = sorted(parms)
     Tree_mas = []
-    new_tree = bild_tree(q_y_points[0], q_y_points[-1])
+    new_tree = bild_tree(0, len(q_y_points) - 1)
     sq_ind = 0
     for sq in q_x_points:
         while sq_ind < len(squares) and squares[sq_ind][0] == sq:
-            new_tree = plus_to_tree(new_tree, squares[sq_ind][1], squares[sq_ind][3], 1)
+            new_tree = plus_to_tree(new_tree, bins(q_y_points, squares[sq_ind][1], 0, len(q_y_points)),
+                                    bins(q_y_points, squares[sq_ind][3], 0, len(q_y_points)), 1)
             que.append(squares[sq_ind])
             que.sort(key=therd_arg)
             sq_ind += 1
         while len(que) > 0 and sq >= que[0][2]:
-            new_tree = plus_to_tree(new_tree, que[0][1], que[0][3], -1)
+            new_tree = plus_to_tree(new_tree, bins(q_y_points, que[0][1], 0, len(q_y_points)),
+                                    bins(q_y_points, que[0][3], 0, len(q_y_points)), -1)
             que.pop(0)
+        if bins(q_x_points, sq, 0, len(q_x_points)) == 15:
+            print(len(que), que)
+            print_tree(Tree_mas[-1])
         Tree_mas.append(new_tree)
 
+    p_ind = 0
     for p in points:
         if p[0] < q_x_points[0] or p[0] > q_x_points[-1]:
-            print(0, end=' ')
             continue
         if p[1] < q_y_points[0] or p[1] > q_y_points[-1]:
-            print(0, end=' ')
             continue
-        result.append(sum_tree(Tree_mas[bins(q_x_points, p[0], 0, len(q_x_points))], p[1]))
+        result.append(sum_tree(Tree_mas[bins(q_x_points, p[0], 0, len(q_x_points))],
+                               bins(q_y_points, p[1], 0, len(q_y_points))))
+        if p_result[p_ind] != result[p_ind]:
+            print(bins(q_x_points, p[0], 0, len(q_x_points)), p[0], p[1], '\n', q_x_points)
+        p_ind += 1
     return result
