@@ -47,7 +47,6 @@ def tree_r(parms, points):
         return mas[2]
 
     def plus_to_tree(t_tree, start_index, end_index, num) -> Tree:
-        print(start_index, end_index, num)
         if t_tree is None:
             return t_tree
         tree = Tree(t_tree.left_gr, t_tree.right_gr, t_tree.left_ch, t_tree.right_ch, t_tree.cargo)
@@ -56,8 +55,6 @@ def tree_r(parms, points):
         elif tree.right_gr >= start_index or tree.left_gr <= end_index:
             tree.left_ch = plus_to_tree(tree.left_ch, start_index, end_index, num)
             tree.right_ch = plus_to_tree(tree.right_ch, start_index, end_index, num)
-        print_tree(tree)
-        print('\n\n')
         return tree
 
     def is_childe(tree):
@@ -107,20 +104,16 @@ def tree_r(parms, points):
             new_tree = plus_to_tree(new_tree, bins(q_y_points, que[0][1], 0, len(q_y_points)),
                                     bins(q_y_points, que[0][3], 0, len(q_y_points)), -1)
             que.pop(0)
-        if bins(q_x_points, sq, 0, len(q_x_points)) == 15:
-            print(len(que), que)
-            print_tree(Tree_mas[-1])
         Tree_mas.append(new_tree)
 
-    p_ind = 0
     for p in points:
         if p[0] < q_x_points[0] or p[0] > q_x_points[-1]:
             continue
         if p[1] < q_y_points[0] or p[1] > q_y_points[-1]:
             continue
-        result.append(sum_tree(Tree_mas[bins(q_x_points, p[0], 0, len(q_x_points))],
-                               bins(q_y_points, p[1], 0, len(q_y_points))))
-        if p_result[p_ind] != result[p_ind]:
-            print(bins(q_x_points, p[0], 0, len(q_x_points)), p[0], p[1], '\n', q_x_points)
-        p_ind += 1
+        x = bins(q_x_points, p[0], 0, len(q_x_points))
+        y = bins(q_y_points, p[1], 0, len(q_y_points))
+        if y > len(q_y_points) // 2:
+            y += 1
+        result.append(sum_tree(Tree_mas[x], y))
     return result
