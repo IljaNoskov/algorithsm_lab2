@@ -1,9 +1,5 @@
-from pereb_resh import pereb_r
-
-
 def tree_r(parms, points):
     result = []
-    p_result = pereb_r(parms, points)
 
     class Tree:
         def __init__(self, left_gr=None, right_gr=None, left_ch=None, right_ch=None, cargo=0, ):

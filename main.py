@@ -18,7 +18,7 @@ print(f'pr:{p_r}\nmr:{m_r}\ntr:{t_r}')
 
 
 index = 1
-while index < 2**10:
+while index <= 2**15:
     squares, points = data_gen(index)
     p_r = pereb_r(squares, points)
     m_r = map_r(squares, points)
