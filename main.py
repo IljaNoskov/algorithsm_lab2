@@ -18,3 +18,5 @@ while index < 2**10:
     assert m_r == t_r, f'mr:\n{m_r}\n tr:\n{t_r}\n'
     print(f'')
     index = index * 2
+
+    
