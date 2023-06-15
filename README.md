@@ -19,7 +19,29 @@ def data_gen(a_count, just_N=76283):
 ```
 # map_r - Решение при помощи карты координат
 ```python
+map_sq = []
+    for i in range(len(x_points)):
+        map_sq.append([])
+        for k in range(len(y_points)):
+            map_sq[i].append(0)
 
+    for sq in range(square_num):
+        for i in range(bins(x_points, sq_x_points[sq][0], 0, len(x_points)),
+                       bins(x_points, sq_x_points[sq][1], 0, len(x_points))):
+            for j in range(bins(y_points, sq_y_points[sq][0], 0, len(y_points)),
+                           bins(y_points, sq_y_points[sq][1], 0, len(y_points))):
+                map_sq[i][j] += 1
+```
+Проверка точек
+```python
+    for point in points:
+        if ((point[0] < x_points[0] or point[0] >= x_points[-1])
+                or (point[1] < y_points[0] or point[1] >= y_points[-1])):
+            result.append(0)
+        else:
+            x = bins(x_points, point[0], 0, len(x_points))
+            y = bins(y_points, point[1], 0, len(y_points))
+            result.append(map_sq[x][y])
 ```
 # pereb_resh - Решение перебором
 Перебираем для каждой точки все прямоугольники и считаем все, в которые она входит.
@@ -80,6 +102,21 @@ def pereb_r(parms, points):
             sum_sotr_time += time.time() * 100 - sort_time
             que.pop(0)
         Tree_mas.append(new_tree)
+```
+Проверка точкек
+```python
+    for p in points:
+        if p[0] < q_x_points[0] or p[0] > q_x_points[-1]:
+            result.append(0)
+            continue
+        if p[1] < q_y_points[0] or p[1] > q_y_points[-1]:
+            result.append(0)
+            continue
+        x = bins(q_x_points, p[0], 0, len(q_x_points))
+        y = bins(q_y_points, p[1], 0, len(q_y_points))
+        if y > len(q_y_points) // 2:
+            y += 1
+        result.append(Tree_mas[x].sum_tree(y))
 ```
 # Графики и выводы
 
