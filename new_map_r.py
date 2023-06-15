@@ -57,5 +57,5 @@ def map_r(squares, points):
             y = bins(y_points, point[1], 0, len(y_points))
             result.append(map_sq[x][y])
 
-    end_search = time.time() - start_time
+    end_search = (time.time() * 100 - start_time * 100) / 100
     return result, end_prepair, end_search

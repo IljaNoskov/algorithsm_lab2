@@ -120,14 +120,16 @@ def tree_r(parms, points):
 
     for p in points:
         if p[0] < q_x_points[0] or p[0] > q_x_points[-1]:
+            result.append(0)
             continue
         if p[1] < q_y_points[0] or p[1] > q_y_points[-1]:
+            result.append(0)
             continue
         x = bins(q_x_points, p[0], 0, len(q_x_points))
         y = bins(q_y_points, p[1], 0, len(q_y_points))
         if y > len(q_y_points) // 2:
             y += 1
         result.append(Tree_mas[x].sum_tree(y))
-    search_time = time.time() - start_time
+    search_time = (time.time() * 100 - start_time * 100) / 100
     sum_sotr_time /= 100
     return result, prepare_time, search_time, sum_sotr_time

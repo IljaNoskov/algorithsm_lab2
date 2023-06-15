@@ -16,6 +16,8 @@ assert m_r == t_r, f'Решение картой:\n{m_r}\nРешение дер�
 print(f'pr:{p_r}\nmr:{m_r}\ntr:{t_r}')
 '''
 
+time_lists = [[], [], []]
+
 index = 1
 while index <= 2 ** 10:
     per_time = 0
@@ -48,13 +50,27 @@ while index <= 2 ** 10:
         t_r = tree_r(squares, points)
         tree_time = (time.time() - start_time)
 
-    print(t_r[3])
+    # print(t_r[3])
     print(index, end=' ')
-    print(f'{per_time} {map_time} {tree_time}'.replace('.', ','))
-    # print(f'{p_r[1]} {m_r[1]} {t_r[1]}'.replace('.', ','))
-    # print(f'{p_r[2]} {m_r[2]} {t_r[2]}'.replace('.', ','))
+    time_lists[0].append(f'{index} {per_time} {map_time} {tree_time}'.replace('.', ','))
+    time_lists[1].append(f'{index} {p_r[1]} {m_r[1]} {t_r[1]}'.replace('.', ','))
+    time_lists[2].append(f'{index} {p_r[2]} {m_r[2]} {t_r[2]}'.replace('.', ','))
     # print(f'pr:{p_r[0]}\nmr:{m_r}\ntr:{t_r}')
     assert p_r[0] == m_r[0], f'Решение перебором:\n{p_r[0]}\nРешение картой:\n{m_r[0]}\n'
     assert p_r[0] == t_r[0], f'Решение перебором:\n{p_r[0]}\nРешение деревом:\n{t_r[0]}\n'
     assert m_r[0] == t_r[0], f'Решение картой:\n{m_r[0]}\nРешение деревом:\n{t_r[0]}\n'
     index += 100
+
+
+def print_list(mas):
+    for line in mas:
+        print(line)
+    print()
+
+
+print('all time')
+print_list(time_lists[0])
+print('prepare time')
+print_list(time_lists[1])
+print('ans time')
+print_list(time_lists[2])
