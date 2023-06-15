@@ -1,5 +1,7 @@
 def tree_r(parms, points):
+    import time
     result = []
+    start_time = time.time()
 
     class Tree:
         def __init__(self, left_gr=None, right_gr=None, left_ch=None, right_ch=None, cargo=0, ):
@@ -13,7 +15,7 @@ def tree_r(parms, points):
         if start >= stop:
             return start
         mid = (start + stop) // 2
-        if arr[mid] == num or (arr[mid] < num < arr[mid+1]):
+        if arr[mid] == num or (arr[mid] < num < arr[mid + 1]):
             return mid
         elif arr[mid] < num:
             return bins(arr, num, mid + 1, stop)
@@ -102,6 +104,9 @@ def tree_r(parms, points):
             que.pop(0)
         Tree_mas.append(new_tree)
 
+    prepare_time = time.time() - start_time
+    start_time = time.time()
+
     for p in points:
         if p[0] < q_x_points[0] or p[0] > q_x_points[-1]:
             continue
@@ -112,4 +117,5 @@ def tree_r(parms, points):
         if y > len(q_y_points) // 2:
             y += 1
         result.append(sum_tree(Tree_mas[x], y))
-    return result
+    search_time = time.time() - start_time
+    return result, prepare_time, search_time

@@ -1,6 +1,7 @@
 def map_r(squares, points):
+    import time
     result = []
-
+    start_time = time.time()
     def bins(arr, num, start, stop):
         if start >= stop:
             return stop
@@ -44,6 +45,9 @@ def map_r(squares, points):
                            bins(y_points, sq_y_points[sq][1], 0, len(y_points))):
                 map_sq[i][j] += 1
 
+    end_prepair = time.time() - start_time
+    start_time = time.time()
+
     for point in points:
         if ((point[0] < x_points[0] or point[0] >= x_points[-1])
                 or (point[1] < y_points[0] or point[1] >= y_points[-1])):
@@ -52,4 +56,6 @@ def map_r(squares, points):
             x = bins(x_points, point[0], 0, len(x_points))
             y = bins(y_points, point[1], 0, len(y_points))
             result.append(map_sq[x][y])
-    return result
+
+    end_search = time.time() - start_time
+    return result, end_prepair, end_search
