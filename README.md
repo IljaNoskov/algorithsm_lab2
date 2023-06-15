@@ -32,7 +32,7 @@ map_sq = []
                            bins(y_points, sq_y_points[sq][1], 0, len(y_points))):
                 map_sq[i][j] += 1
 ```
-Проверка точек
+##### Проверка точек
 ```python
     for point in points:
         if ((point[0] < x_points[0] or point[0] >= x_points[-1])
@@ -44,7 +44,7 @@ map_sq = []
             result.append(map_sq[x][y])
 ```
 # pereb_resh - Решение перебором
-Перебираем для каждой точки все прямоугольники и считаем все, в которые она входит.
+##### Перебираем для каждой точки все прямоугольники и считаем все, в которые она входит.
 ```python
 def pereb_r(parms, points):
     import time
@@ -59,7 +59,7 @@ def pereb_r(parms, points):
     return result, 0, time.time() - start_time
 ```
 # tree_r - Решение при помощи дерева отрезков
-Структура дерева и "добавление" к дереву прямоугольника.
+##### Структура дерева и "добавление" к дереву прямоугольника.
 ```python
     class Tree:
         def __init__(self, left_gr=None, right_gr=None, left_ch=None, right_ch=None, cargo=0, ):
@@ -82,7 +82,7 @@ def pereb_r(parms, points):
                     tree.right_ch = tree.right_ch.plus_to_tree(start_index, end_index, num)
             return tree
 ```
-Добавление новых деревьев в массив деревьев.
+##### Добавление новых деревьев в массив деревьев.
 Для каждой координаты мы сначала добавляем новый прямоугольник к дереву, потом добавляем этот прямоугольник к очереди прямоугольников. А после удаляем из учёта дерева все прямоугольники, кончающиеся на данной координате.
 ```python
     for sq in q_x_points:
@@ -103,7 +103,7 @@ def pereb_r(parms, points):
             que.pop(0)
         Tree_mas.append(new_tree)
 ```
-Проверка точкек
+##### Проверка точкек
 ```python
     for p in points:
         if p[0] < q_x_points[0] or p[0] > q_x_points[-1]:
@@ -122,18 +122,18 @@ def pereb_r(parms, points):
 Таблица с графиками и данными.
 https://docs.google.com/spreadsheets/d/1Ki-PE-TQWDd7N7cYA9GxE48JqQVPAcve-c0c7U0acMg/edit?usp=sharing
 
-Общее время работы
+##### Общее время работы
 ![image](https://github.com/IljaNoskov/algorithsm_lab2/assets/99073996/0f9a581c-7501-406f-8299-e28819ff0ba6)
 
-Время подготовки
+##### Время подготовки
 ![image](https://github.com/IljaNoskov/algorithsm_lab2/assets/99073996/b9d4708f-755e-4d25-90f4-5c8ab10e4397)
 
-Время поиска ответов для точек
+##### Время поиска ответов для точек
 ![image](https://github.com/IljaNoskov/algorithsm_lab2/assets/99073996/20243fbb-74c8-484b-a46e-1fd3f42cd8fe)
 
 По графикам видно, что самым эффективным алгоритмом на данных с равным количеством точек и прямоугольников является алгоритм перебора. Решение при помощи матрицы в сотни раз медленне. Решение при помощи дерева отрезков на этих данных очень близко ко времени решения перебором.
 
-Вывод:
+#### Вывод:
 На равных данных пук-пук
 
 
