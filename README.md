@@ -119,4 +119,21 @@ def pereb_r(parms, points):
         result.append(Tree_mas[x].sum_tree(y))
 ```
 # Графики и выводы
+Таблица с графиками и данными.
+https://docs.google.com/spreadsheets/d/1Ki-PE-TQWDd7N7cYA9GxE48JqQVPAcve-c0c7U0acMg/edit?usp=sharing
+
+Общее время работы
+![image](https://github.com/IljaNoskov/algorithsm_lab2/assets/99073996/0f9a581c-7501-406f-8299-e28819ff0ba6)
+
+Время подготовки
+![image](https://github.com/IljaNoskov/algorithsm_lab2/assets/99073996/b9d4708f-755e-4d25-90f4-5c8ab10e4397)
+
+Время поиска ответов для точек
+![image](https://github.com/IljaNoskov/algorithsm_lab2/assets/99073996/20243fbb-74c8-484b-a46e-1fd3f42cd8fe)
+
+По графикам видно, что самым эффективным алгоритмом на данных с равным количеством точек и прямоугольников является алгоритм перебора. Решение при помощи матрицы в сотни раз медленне. Решение при помощи дерева отрезков на этих данных очень близко ко времени решения перебором.
+
+Вывод:
+На равных данных пук-пук
+
 
