@@ -47,15 +47,6 @@ def tree_r(parms, points):
             self.left_gr = left_gr
             self.right_gr = right_gr
 
-        def print_tree(self, end="\n"):
-            if self == None: return
-            if end == "\n":
-                print(self.left_gr, self.right_gr, self.cargo, sep=",")
-            else:
-                print(self.left_gr, self.right_gr, self.cargo, sep=",", end=end + "  ")
-            self.left_ch.print_tree(end="")
-            self.right_ch.print_tree()
-
         def plus_to_tree(self, start_index, end_index, num):
             if self is None:
                 return self
@@ -95,6 +86,16 @@ def tree_r(parms, points):
             root = Tree(start_ind, end_ind, left, right)
             return root
 
+    def print_tree(tree, end="\n"):
+        if tree == None: return
+        if end == "\n":
+            print(tree.left_gr, tree.right_gr, tree.cargo, sep=",")
+        else:
+            print(tree.left_gr, tree.right_gr, tree.cargo, sep=",", end=end + "  ")
+        print_tree(tree.left_ch, end="")
+        print_tree(tree.right_ch)
+
+
     q_num = len(parms)
     q_x_points = []
     q_y_points = []
@@ -123,7 +124,7 @@ def tree_r(parms, points):
         while sq_ind < len(squares) and squares[sq_ind][0] == sq:
             sort_time = time.time() * 100
             new_tree = new_tree.plus_to_tree(bins(q_y_points, squares[sq_ind][1], 0, len(q_y_points)),
-                                             bins(q_y_points, squares[sq_ind][3], 0, len(q_y_points)), 1)
+                                             bins(q_y_points, squares[sq_ind][3], 0, len(q_y_points))-1, 1)
             sum_sotr_time += time.time() * 100 - sort_time
 
             que.append(squares[sq_ind])
@@ -132,11 +133,10 @@ def tree_r(parms, points):
         while len(que) > 0 and sq >= que[0][2]:
             sort_time = time.time() * 100
             new_tree = new_tree.plus_to_tree(bins(q_y_points, que[0][1], 0, len(q_y_points)),
-                                             bins(q_y_points, que[0][3], 0, len(q_y_points)), -1)
+                                             bins(q_y_points, que[0][3], 0, len(q_y_points))-1, -1)
             sum_sotr_time += time.time() * 100 - sort_time
             que.pop(0)
         Tree_mas.append(new_tree)
-
     prepare_time = time.time() - start_time
     start_time = time.time()
 
@@ -149,8 +149,6 @@ def tree_r(parms, points):
             continue
         x = bins(q_x_points, p[0], 0, len(q_x_points))
         y = bins(q_y_points, p[1], 0, len(q_y_points))
-        if y > len(q_y_points) // 2:
-            y += 1
         result.append(Tree_mas[x].sum_tree(y))
     search_time = (time.time() * 100 - start_time * 100) / 100
     sum_sotr_time /= 100
