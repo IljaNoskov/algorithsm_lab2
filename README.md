@@ -118,8 +118,6 @@ def pereb_r(parms, points):
             continue
         x = bins(q_x_points, p[0], 0, len(q_x_points))
         y = bins(q_y_points, p[1], 0, len(q_y_points))
-        if y > len(q_y_points) // 2:
-            y += 1
         result.append(Tree_mas[x].sum_tree(y))
 ```
 # Графики и выводы
