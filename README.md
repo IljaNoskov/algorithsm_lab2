@@ -92,7 +92,7 @@ def pereb_r(parms, points):
         while sq_ind < len(squares) and squares[sq_ind][0] == sq:
             sort_time = time.time() * 100
             new_tree = new_tree.plus_to_tree(bins(q_y_points, squares[sq_ind][1], 0, len(q_y_points)),
-                                             bins(q_y_points, squares[sq_ind][3], 0, len(q_y_points)), 1)
+                                             bins(q_y_points, squares[sq_ind][3], 0, len(q_y_points)-1), 1)
             sum_sotr_time += time.time() * 100 - sort_time
 
             que.append(squares[sq_ind])
@@ -101,7 +101,7 @@ def pereb_r(parms, points):
         while len(que) > 0 and sq >= que[0][2]:
             sort_time = time.time() * 100
             new_tree = new_tree.plus_to_tree(bins(q_y_points, que[0][1], 0, len(q_y_points)),
-                                             bins(q_y_points, que[0][3], 0, len(q_y_points)), -1)
+                                             bins(q_y_points, que[0][3], 0, len(q_y_points)-1), -1)
             sum_sotr_time += time.time() * 100 - sort_time
             que.pop(0)
         Tree_mas.append(new_tree)
