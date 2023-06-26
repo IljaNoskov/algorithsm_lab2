@@ -71,7 +71,16 @@ def pereb_r(parms, points):
             self.right_ch = right_ch
             self.left_gr = left_gr
             self.right_gr = right_gr
-            
+
+        def print_tree(self, end="\n"):
+            if self == None: return
+            if end == "\n":
+                print(self.left_gr, self.right_gr, self.cargo, sep=",")
+            else:
+                print(self.left_gr, self.right_gr, self.cargo, sep=",", end=end + "  ")
+            self.left_ch.print_tree(end="")
+            self.right_ch.print_tree()
+
         def plus_to_tree(self, start_index, end_index, num):
             if self is None:
                 return self
@@ -84,6 +93,30 @@ def pereb_r(parms, points):
                 if not tree.right_ch is None:
                     tree.right_ch = tree.right_ch.plus_to_tree(start_index, end_index, num)
             return tree
+
+        def sum_tree(self, y_point):
+            if self is None:
+                return int(0)
+            sum_t = self.cargo
+            mid_ind = (self.left_gr + self.right_gr) // 2
+            if mid_ind >= y_point:
+                if not self.left_ch is None:
+                    return sum_t + self.left_ch.sum_tree(y_point)
+            else:
+                if not self.right_ch is None:
+                    return sum_t + self.right_ch.sum_tree(y_point)
+            return sum_t
+
+    # Функция, которая возвращает дерево отрезков нужного размера с cargo = 0
+    def build_tree(start_ind, end_ind) -> Tree:
+        if start_ind >= end_ind:
+            return Tree(start_ind, end_ind)
+        else:
+            mid_ind = (start_ind + end_ind) // 2
+            left = build_tree(start_ind, mid_ind)
+            right = build_tree(mid_ind + 1, end_ind)
+            root = Tree(start_ind, end_ind, left, right)
+            return root
 ```
 ##### Добавление новых деревьев в массив деревьев.
 Для каждой координаты мы сначала добавляем новый прямоугольник к дереву, потом добавляем этот прямоугольник к очереди прямоугольников. А после удаляем из учёта дерева все прямоугольники, кончающиеся на данной координате.
